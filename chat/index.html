@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Humanlike Chat</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f6f6f4; --panel: #ffffff; --text: #1d1d1b; --muted: #6b6b66;
+    --line: #ddddd7; --accent: #2f5fd0; --user: #e4ebfb; --bad: #b3261e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #161615; --panel: #20201f; --text: #ececE8; --muted: #9c9c95;
+      --line: #383836; --accent: #86a8f5; --user: #2a3550; --bad: #f2a29c;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    display: grid; grid-template-columns: 320px minmax(0, 1fr); height: 100dvh;
+  }
+  aside {
+    background: var(--panel); border-right: 1px solid var(--line);
+    padding: 16px; display: flex; flex-direction: column; gap: 12px; min-height: 0;
+  }
+  h1 { font-size: 16px; margin: 0; }
+  label { font-weight: 600; font-size: 13px; }
+  .hint { color: var(--muted); font-size: 12px; margin: 0; }
+  #status { color: var(--muted); font-size: 12px; }
+  #status.bad { color: var(--bad); }
+  #system {
+    flex: 1; min-height: 120px; resize: none; width: 100%;
+    border: 1px solid var(--line); border-radius: 8px; padding: 10px;
+    background: var(--bg); color: inherit; font: inherit;
+  }
+  .check { display: flex; gap: 8px; align-items: center; font-size: 13px; }
+  button {
+    font: inherit; border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 14px; background: var(--panel); color: inherit; cursor: pointer;
+  }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:disabled { opacity: .5; cursor: default; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  main { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+  #log { flex: 1; overflow-y: auto; padding: 20px; }
+  #log-inner { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+  #empty { color: var(--muted); text-align: center; margin-top: 30vh; }
+  .msg { max-width: 88%; padding: 9px 13px; border-radius: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .msg.user { align-self: flex-end; background: var(--user); }
+  .msg.assistant { align-self: flex-start; background: var(--panel); border: 1px solid var(--line); }
+  .msg details { color: var(--muted); font-size: 13px; margin-bottom: 6px; }
+  .msg summary { cursor: pointer; }
+  .stats { display: block; color: var(--muted); font-size: 11px; margin-top: 6px; white-space: normal; }
+  #error { color: var(--bad); max-width: 760px; width: 100%; margin: 0 auto; padding: 0 20px; font-size: 13px; }
+  footer { padding: 12px 20px 16px; }
+  form { max-width: 760px; margin: 0 auto; display: flex; gap: 8px; align-items: flex-end; }
+  #input {
+    flex: 1; resize: none; max-height: 200px; border: 1px solid var(--line);
+    border-radius: 8px; padding: 9px 11px; background: var(--panel); color: inherit; font: inherit;
+  }
+  @media (max-width: 720px) {
+    body { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+    aside { border-right: 0; border-bottom: 1px solid var(--line); }
+    #system { flex: none; height: 90px; min-height: 0; }
+  }
+</style>
+</head>
+<body>
+<aside>
+  <h1>Humanlike Chat</h1>
+  <div id="status" role="status">Checking the model server…</div>
+  <label for="system">System prompt</label>
+  <textarea id="system" placeholder="Leave empty to use no system prompt."></textarea>
+  <p class="hint">The prompt saves as you type. A change applies from your next message.</p>
+  <div class="check">
+    <input type="checkbox" id="thinking">
+    <label for="thinking" style="font-weight:400">Turn on thinking (slower)</label>
+  </div>
+  <button id="clear" type="button">Clear conversation</button>
+  <p class="hint">Clear removes the messages. It keeps the system prompt.</p>
+</aside>
+<main>
+  <div id="log" aria-live="polite"><div id="log-inner"><div id="empty">Send a message to start.</div></div></div>
+  <div id="error" role="alert"></div>
+  <footer>
+    <form id="form">
+      <textarea id="input" rows="1" placeholder="Type a message. Enter sends. Shift+Enter adds a line." aria-label="Message"></textarea>
+      <button id="send" class="primary" type="submit">Send</button>
+    </form>
+  </footer>
+</main>
+<script>
+const MODEL = "humanlike-2.0-nvfp4";
+const KEYS = { system: "humanlike.system", messages: "humanlike.messages", thinking: "humanlike.thinking" };
+const $ = (id) => document.getElementById(id);
+const log = $("log"), inner = $("log-inner"), empty = $("empty");
+const input = $("input"), send = $("send"), system = $("system"), thinking = $("thinking");
+
+let messages = [];
+try { messages = JSON.parse(localStorage.getItem(KEYS.messages)) || []; } catch { messages = []; }
+let controller = null;
+let runId = 0;
+
+system.value = localStorage.getItem(KEYS.system) || "";
+thinking.checked = localStorage.getItem(KEYS.thinking) === "1";
+system.addEventListener("input", () => localStorage.setItem(KEYS.system, system.value));
+thinking.addEventListener("change", () => localStorage.setItem(KEYS.thinking, thinking.checked ? "1" : "0"));
+
+function saveMessages() { localStorage.setItem(KEYS.messages, JSON.stringify(messages)); }
+function scrollDown() { log.scrollTop = log.scrollHeight; }
+function setBusy(busy) {
+  send.textContent = busy ? "Stop" : "Send";
+  send.classList.toggle("primary", !busy);
+}
+function fitInput() {
+  input.style.height = "auto";
+  input.style.height = input.scrollHeight + 2 + "px";
+}
+
+function addBubble(role, text) {
+  empty.hidden = true;
+  const el = document.createElement("div");
+  el.className = "msg " + role;
+  const body = document.createElement("span");
+  body.textContent = text;
+  el.append(body);
+  inner.append(el);
+  scrollDown();
+  return { el, body };
+}
+
+function clearConversation() {
+  runId++;
+  if (controller) controller.abort();
+  controller = null;
+  messages = [];
+  saveMessages();
+  inner.replaceChildren(empty);
+  empty.hidden = false;
+  $("error").textContent = "";
+  setBusy(false);
+  input.focus();
+}
+
+function requestMessages() {
+  const prompt = system.value.trim();
+  return prompt ? [{ role: "system", content: prompt }, ...messages] : messages;
+}
+
+async function readStream(resp, onDelta, onUsage) {
+  const reader = resp.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) return;
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split("\n");
+    buffer = lines.pop();
+    for (const line of lines) {
+      if (!line.startsWith("data: ")) continue;
+      const data = line.slice(6).trim();
+      if (data === "[DONE]") return;
+      const obj = JSON.parse(data);
+      if (obj.error) throw new Error(obj.error.message || "The model server returned an error.");
+      if (obj.usage) onUsage(obj.usage);
+      const delta = obj.choices?.[0]?.delta;
+      if (delta) onDelta(delta);
+    }
+  }
+}
+
+async function sendMessage() {
+  const text = input.value.trim();
+  if (!text) return;
+  $("error").textContent = "";
+  input.value = "";
+  fitInput();
+  messages.push({ role: "user", content: text });
+  saveMessages();
+  addBubble("user", text);
+  const { el, body } = addBubble("assistant", "");
+  body.textContent = "…";
+
+  const run = ++runId;
+  const ctl = new AbortController();
+  controller = ctl;
+  setBusy(true);
+  let answer = "", reasoning = "", usage = null, reasoningBody = null, failure = null;
+  const started = performance.now();
+  let firstToken = null;
+
+  try {
+    const resp = await fetch("/v1/chat/completions", {
+      method: "POST",
+      signal: ctl.signal,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: MODEL,
+        stream: true,
+        stream_options: { include_usage: true },
+        messages: requestMessages(),
+        reasoning_effort: thinking.checked ? "medium" : "none",
+      }),
+    });
+    if (!resp.ok) {
+      const info = await resp.json().catch(() => null);
+      throw new Error(info?.error?.message || `The model server returned HTTP ${resp.status}.`);
+    }
+    await readStream(resp, (delta) => {
+      if (run !== runId) return;
+      const thought = delta.reasoning || delta.reasoning_content;
+      if (firstToken === null && (delta.content || thought)) {
+        firstToken = performance.now();
+        body.textContent = "";
+      }
+      if (thought) {
+        if (!reasoningBody) {
+          const details = document.createElement("details");
+          const summary = document.createElement("summary");
+          summary.textContent = "Thinking";
+          reasoningBody = document.createElement("div");
+          details.append(summary, reasoningBody);
+          el.prepend(details);
+        }
+        reasoning += thought;
+        reasoningBody.textContent = reasoning;
+      }
+      if (delta.content) {
+        answer += delta.content;
+        body.textContent = answer;
+      }
+      scrollDown();
+    }, (u) => { usage = u; });
+  } catch (err) {
+    if (err.name !== "AbortError") failure = err;
+  }
+
+  if (run !== runId) return;
+  const finished = performance.now();
+  controller = null;
+  setBusy(false);
+
+  if (!answer) {
+    // A turn with no reply must not stay in history: it would pair two user turns.
+    messages.pop();
+    saveMessages();
+    el.previousElementSibling.remove();
+    el.remove();
+    if (!inner.querySelector(".msg")) empty.hidden = false;
+    input.value = text;
+    fitInput();
+    if (failure) $("error").textContent = failure.message;
+    else if (ctl.signal.aborted === false) $("error").textContent = "The model returned no reply text.";
+    input.focus();
+    return;
+  }
+
+  messages.push({ role: "assistant", content: answer });
+  saveMessages();
+  if (failure) $("error").textContent = failure.message;
+  if (usage && firstToken !== null) {
+    const stats = document.createElement("span");
+    stats.className = "stats";
+    const ttft = ((firstToken - started) / 1000).toFixed(2);
+    const decodeS = (finished - firstToken) / 1000;
+    const tps = decodeS > 0 ? ` · ${((usage.completion_tokens - 1) / decodeS).toFixed(1)} tok/s` : "";
+    stats.textContent = `${usage.completion_tokens} tokens${tps} · first token ${ttft} s`;
+    el.append(stats);
+  }
+  scrollDown();
+  input.focus();
+}
+
+$("form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (controller) controller.abort();
+  else sendMessage();
+});
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey && !e.isComposing) {
+    e.preventDefault();
+    if (!controller) sendMessage();
+  }
+});
+input.addEventListener("input", fitInput);
+$("clear").addEventListener("click", clearConversation);
+
+async function checkHealth() {
+  const status = $("status");
+  try {
+    const resp = await fetch("/health");
+    if (!resp.ok) throw new Error();
+    status.textContent = `Model server ready: ${MODEL}`;
+    status.classList.remove("bad");
+  } catch {
+    status.textContent = "The model server (Ollama) is not reachable on port 11434.";
+    status.classList.add("bad");
+  }
+}
+
+for (const m of messages) addBubble(m.role, m.content);
+checkHealth();
+setInterval(checkHealth, 15000);
+input.focus();
+</script>
+</body>
+</html>
