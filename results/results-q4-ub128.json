@@ -1,0 +1,661 @@
+{
+ "args": {
+  "base": "http://127.0.0.1:8090/v1",
+  "model": "humanlike-2.0",
+  "reps": 3,
+  "prompt_chars": [
+   200,
+   8000,
+   32000,
+   80000
+  ],
+  "warm_chars": 32000,
+  "decode_tokens": 512,
+  "conc_tokens": 256,
+  "concurrency": [
+   1,
+   2,
+   4
+  ],
+  "stages": [
+   "smoke",
+   "cold",
+   "warm",
+   "decode"
+  ],
+  "out": "results-q4-ub128.json"
+ },
+ "started": "2026-10-31T18:49:06-0700",
+ "smoke": {
+  "chat": {
+   "finish_reason": "stop",
+   "index": 0,
+   "message": {
+    "role": "assistant",
+    "content": "not much, just chilling"
+   }
+  },
+  "tool": {
+   "finish_reason": "tool_calls",
+   "index": 0,
+   "message": {
+    "role": "assistant",
+    "content": "",
+    "tool_calls": [
+     {
+      "type": "function",
+      "function": {
+       "name": "get_weather",
+       "arguments": "{\"city\":\"Lisbon\"}"
+      },
+      "id": "FGJl3T0NWcQemiwcekLadri2NNC0tf1i"
+     }
+    ]
+   }
+  }
+ },
+ "cold": {
+  "200": {
+   "summary": {
+    "n": 3,
+    "ttft_s": {
+     "median": 0.611,
+     "min": 0.596,
+     "max": 0.613
+    },
+    "total_s": {
+     "median": 2.024,
+     "min": 2.013,
+     "max": 2.028
+    },
+    "prompt_tokens": {
+     "median": 92,
+     "min": 92,
+     "max": 92
+    },
+    "completion_tokens": {
+     "median": 32,
+     "min": 32,
+     "max": 32
+    },
+    "client_decode_tps": {
+     "median": 21.903,
+     "min": 21.876,
+     "max": 21.948
+    },
+    "itl_p50_ms": {
+     "median": 45.685,
+     "min": 45.667,
+     "max": 45.697
+    },
+    "itl_p99_ms": {
+     "median": 48.184,
+     "min": 47.917,
+     "max": 48.287
+    },
+    "server_prompt_tps": {
+     "median": 156.715,
+     "min": 156.219,
+     "max": 156.834
+    },
+    "server_decode_tps": {
+     "median": 22.609,
+     "min": 22.581,
+     "max": 22.654
+    }
+   },
+   "rows": [
+    {
+     "ttft_s": 0.5961497499956749,
+     "total_s": 2.0132085000004736,
+     "prompt_tokens": 92,
+     "completion_tokens": 32,
+     "client_decode_tps": 21.87629835382268,
+     "itl_p50_ms": 45.684541000809986,
+     "itl_p99_ms": 48.28745800477918,
+     "server_prompt_n": 92,
+     "server_cache_n": 0,
+     "server_prompt_tps": 156.21869258538538,
+     "server_decode_tps": 22.58102530556714,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Strategic Efficiency\n\n## Executi"
+    },
+    {
+     "ttft_s": 0.6131892080011312,
+     "total_s": 2.02849891599908,
+     "prompt_tokens": 92,
+     "completion_tokens": 32,
+     "client_decode_tps": 21.90333311841095,
+     "itl_p50_ms": 45.6969580045552,
+     "itl_p99_ms": 48.18433299806202,
+     "server_prompt_n": 92,
+     "server_cache_n": 0,
+     "server_prompt_tps": 156.7152483936687,
+     "server_decode_tps": 22.60923262144867,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Strategic Efficiency\n\n## Executi"
+    },
+    {
+     "ttft_s": 0.6111915829969803,
+     "total_s": 2.02365166600066,
+     "prompt_tokens": 92,
+     "completion_tokens": 32,
+     "client_decode_tps": 21.947522887922375,
+     "itl_p50_ms": 45.66741699818522,
+     "itl_p99_ms": 47.917124997184146,
+     "server_prompt_n": 92,
+     "server_cache_n": 0,
+     "server_prompt_tps": 156.83359784797028,
+     "server_decode_tps": 22.65388892939845,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Strategic Efficiency\n\n## Executi"
+    }
+   ]
+  },
+  "8000": {
+   "summary": {
+    "n": 3,
+    "ttft_s": {
+     "median": 8.575,
+     "min": 8.408,
+     "max": 9.3
+    },
+    "total_s": {
+     "median": 10.002,
+     "min": 9.83,
+     "max": 10.729
+    },
+    "prompt_tokens": {
+     "median": 1808,
+     "min": 1808,
+     "max": 1808
+    },
+    "completion_tokens": {
+     "median": 32,
+     "min": 32,
+     "max": 32
+    },
+    "client_decode_tps": {
+     "median": 21.737,
+     "min": 21.696,
+     "max": 21.796
+    },
+    "itl_p50_ms": {
+     "median": 46.056,
+     "min": 45.937,
+     "max": 46.107
+    },
+    "itl_p99_ms": {
+     "median": 48.13,
+     "min": 47.244,
+     "max": 48.412
+    },
+    "server_prompt_tps": {
+     "median": 211.341,
+     "min": 195.188,
+     "max": 215.292
+    },
+    "server_decode_tps": {
+     "median": 22.437,
+     "min": 22.394,
+     "max": 22.497
+    }
+   },
+   "rows": [
+    {
+     "ttft_s": 8.407769791003375,
+     "total_s": 9.830081708001671,
+     "prompt_tokens": 1808,
+     "completion_tokens": 32,
+     "client_decode_tps": 21.79550043103318,
+     "itl_p50_ms": 45.93741599819623,
+     "itl_p99_ms": 47.24404199805576,
+     "server_prompt_n": 1808,
+     "server_cache_n": 0,
+     "server_prompt_tps": 215.29230276432696,
+     "server_decode_tps": 22.497187851518557,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Procedural Efficiency\n\n## Execut"
+    },
+    {
+     "ttft_s": 8.575402750000649,
+     "total_s": 10.001546542000142,
+     "prompt_tokens": 1808,
+     "completion_tokens": 32,
+     "client_decode_tps": 21.736938570925684,
+     "itl_p50_ms": 46.10733300069114,
+     "itl_p99_ms": 48.13049999938812,
+     "server_prompt_n": 1808,
+     "server_cache_n": 0,
+     "server_prompt_tps": 211.3413136499136,
+     "server_decode_tps": 22.436695215024173,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Procedural Efficiency\n\n## Execut"
+    },
+    {
+     "ttft_s": 9.300223165999341,
+     "total_s": 10.729088207997847,
+     "prompt_tokens": 1808,
+     "completion_tokens": 32,
+     "client_decode_tps": 21.695540928512976,
+     "itl_p50_ms": 46.055708997300826,
+     "itl_p99_ms": 48.41162500088103,
+     "server_prompt_n": 1808,
+     "server_cache_n": 0,
+     "server_prompt_tps": 195.1876316679841,
+     "server_decode_tps": 22.39426930648447,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Procedural Efficiency\n\n## Execut"
+    }
+   ]
+  },
+  "32000": {
+   "summary": {
+    "n": 3,
+    "ttft_s": {
+     "median": 35.032,
+     "min": 34.131,
+     "max": 35.691
+    },
+    "total_s": {
+     "median": 36.511,
+     "min": 35.605,
+     "max": 37.173
+    },
+    "prompt_tokens": {
+     "median": 7088,
+     "min": 7088,
+     "max": 7088
+    },
+    "completion_tokens": {
+     "median": 32,
+     "min": 32,
+     "max": 32
+    },
+    "client_decode_tps": {
+     "median": 20.959,
+     "min": 20.924,
+     "max": 21.029
+    },
+    "itl_p50_ms": {
+     "median": 47.653,
+     "min": 47.55,
+     "max": 47.719
+    },
+    "itl_p99_ms": {
+     "median": 49.446,
+     "min": 49.196,
+     "max": 50.038
+    },
+    "server_prompt_tps": {
+     "median": 202.537,
+     "min": 198.882,
+     "max": 207.99
+    },
+    "server_decode_tps": {
+     "median": 21.635,
+     "min": 21.598,
+     "max": 21.708
+    }
+   },
+   "rows": [
+    {
+     "ttft_s": 35.031902290997095,
+     "total_s": 36.51096545800101,
+     "prompt_tokens": 7088,
+     "completion_tokens": 32,
+     "client_decode_tps": 20.959213028606204,
+     "itl_p50_ms": 47.65291599323973,
+     "itl_p99_ms": 49.196209001820534,
+     "server_prompt_n": 7088,
+     "server_cache_n": 0,
+     "server_prompt_tps": 202.53742127457872,
+     "server_decode_tps": 21.635011939822213,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Strategic Efficiency\n\n## Executi"
+    },
+    {
+     "ttft_s": 34.131249374993786,
+     "total_s": 35.60537354199914,
+     "prompt_tokens": 7088,
+     "completion_tokens": 32,
+     "client_decode_tps": 21.029436117973464,
+     "itl_p50_ms": 47.549750001053326,
+     "itl_p99_ms": 49.44600000453647,
+     "server_prompt_n": 7088,
+     "server_cache_n": 0,
+     "server_prompt_tps": 207.99003338052236,
+     "server_decode_tps": 21.707733855042537,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Strategic Efficiency\n\n## Executi"
+    },
+    {
+     "ttft_s": 35.690984958004265,
+     "total_s": 37.17257100000279,
+     "prompt_tokens": 7088,
+     "completion_tokens": 32,
+     "client_decode_tps": 20.92352325227349,
+     "itl_p50_ms": 47.71899999468587,
+     "itl_p99_ms": 50.03795900120167,
+     "server_prompt_n": 7088,
+     "server_cache_n": 0,
+     "server_prompt_tps": 198.88220233531143,
+     "server_decode_tps": 21.598068052812675,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Strategic Efficiency\n\n## Executi"
+    }
+   ]
+  },
+  "80000": {
+   "summary": {
+    "n": 3,
+    "ttft_s": {
+     "median": 95.187,
+     "min": 91.688,
+     "max": 99.204
+    },
+    "total_s": {
+     "median": 96.783,
+     "min": 93.23,
+     "max": 100.779
+    },
+    "prompt_tokens": {
+     "median": 17648,
+     "min": 17648,
+     "max": 17648
+    },
+    "completion_tokens": {
+     "median": 32,
+     "min": 32,
+     "max": 32
+    },
+    "client_decode_tps": {
+     "median": 19.687,
+     "min": 19.414,
+     "max": 20.108
+    },
+    "itl_p50_ms": {
+     "median": 50.666,
+     "min": 49.699,
+     "max": 51.389
+    },
+    "itl_p99_ms": {
+     "median": 53.023,
+     "min": 51.578,
+     "max": 53.454
+    },
+    "server_prompt_tps": {
+     "median": 185.576,
+     "min": 178.055,
+     "max": 192.62
+    },
+    "server_decode_tps": {
+     "median": 20.323,
+     "min": 20.041,
+     "max": 20.758
+    }
+   },
+   "rows": [
+    {
+     "ttft_s": 91.68781450000097,
+     "total_s": 93.2295091670021,
+     "prompt_tokens": 17648,
+     "completion_tokens": 32,
+     "client_decode_tps": 20.10774290365831,
+     "itl_p50_ms": 49.69883299781941,
+     "itl_p99_ms": 51.57770799996797,
+     "server_prompt_n": 17648,
+     "server_cache_n": 0,
+     "server_prompt_tps": 192.62004795090982,
+     "server_decode_tps": 20.757829431618195,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Strategic Efficiency\n\n## Executi"
+    },
+    {
+     "ttft_s": 95.18656262500008,
+     "total_s": 96.78338174999953,
+     "prompt_tokens": 17648,
+     "completion_tokens": 32,
+     "client_decode_tps": 19.41359513715153,
+     "itl_p50_ms": 51.38874999829568,
+     "itl_p99_ms": 53.45362499792827,
+     "server_prompt_n": 17648,
+     "server_cache_n": 0,
+     "server_prompt_tps": 185.57584021280823,
+     "server_decode_tps": 20.041021465812836,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Strategic Efficiency\n\n## Executi"
+    },
+    {
+     "ttft_s": 99.20418958400114,
+     "total_s": 100.77883124999789,
+     "prompt_tokens": 17648,
+     "completion_tokens": 32,
+     "client_decode_tps": 19.687018748088917,
+     "itl_p50_ms": 50.665624999965075,
+     "itl_p99_ms": 53.02266699436586,
+     "server_prompt_n": 17648,
+     "server_cache_n": 0,
+     "server_prompt_tps": 178.05520094621085,
+     "server_decode_tps": 20.323086263880032,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Strategic Efficiency\n\n## Executi"
+    }
+   ]
+  }
+ },
+ "warm": {
+  "seed": {
+   "ttft_s": 38.16825824999978,
+   "total_s": 38.21868708299735,
+   "prompt_tokens": 7096,
+   "completion_tokens": 2,
+   "client_decode_tps": 19.829925472362753,
+   "itl_p50_ms": null,
+   "itl_p99_ms": null,
+   "server_prompt_n": 7096,
+   "server_cache_n": 0,
+   "server_prompt_tps": 186.28285118819633,
+   "server_decode_tps": 39.66994604887338,
+   "finish": "stop",
+   "text_head": "ok"
+  },
+  "summary": {
+   "n": 3,
+   "ttft_s": {
+    "median": 1.137,
+    "min": 1.099,
+    "max": 1.153
+   },
+   "total_s": {
+    "median": 1.343,
+    "min": 1.332,
+    "max": 1.349
+   },
+   "prompt_tokens": {
+    "median": 7104,
+    "min": 7104,
+    "max": 7105
+   },
+   "completion_tokens": {
+    "median": 5,
+    "min": 5,
+    "max": 6
+   },
+   "client_decode_tps": {
+    "median": 20.457,
+    "min": 20.391,
+    "max": 20.519
+   },
+   "itl_p50_ms": {
+    "median": 48.427,
+    "min": 48.243,
+    "max": 48.446
+   },
+   "itl_p99_ms": {
+    "median": 50.644,
+    "min": 50.2,
+    "max": 51.152
+   },
+   "server_prompt_tps": {
+    "median": 125.065,
+    "min": 123.386,
+    "max": 130.478
+   },
+   "server_decode_tps": {
+    "median": 25.484,
+    "min": 24.549,
+    "max": 25.652
+   },
+   "server_cache_n": {
+    "median": 6964,
+    "min": 6964,
+    "max": 6964
+   }
+  },
+  "rows": [
+   {
+    "ttft_s": 1.1374526670042542,
+    "total_s": 1.3323957920001703,
+    "prompt_tokens": 7104,
+    "completion_tokens": 5,
+    "client_decode_tps": 20.51880516475662,
+    "itl_p50_ms": 48.24262499460019,
+    "itl_p99_ms": 50.19979200005764,
+    "server_prompt_n": 140,
+    "server_cache_n": 6964,
+    "server_prompt_tps": 125.06532429885253,
+    "server_decode_tps": 25.651680954652957,
+    "finish": "stop",
+    "text_head": "blue 37"
+   },
+   {
+    "ttft_s": 1.1527918749998207,
+    "total_s": 1.3489524999968125,
+    "prompt_tokens": 7104,
+    "completion_tokens": 5,
+    "client_decode_tps": 20.391452158461163,
+    "itl_p50_ms": 48.44562499783933,
+    "itl_p99_ms": 50.64437499822816,
+    "server_prompt_n": 140,
+    "server_cache_n": 6964,
+    "server_prompt_tps": 123.38628367564215,
+    "server_decode_tps": 25.483810135420967,
+    "finish": "stop",
+    "text_head": "blue 74"
+   },
+   {
+    "ttft_s": 1.098727125005098,
+    "total_s": 1.343146750004962,
+    "prompt_tokens": 7105,
+    "completion_tokens": 6,
+    "client_decode_tps": 20.456622499125352,
+    "itl_p50_ms": 48.42654149979353,
+    "itl_p99_ms": 51.15220899460837,
+    "server_prompt_n": 141,
+    "server_cache_n": 6964,
+    "server_prompt_tps": 130.478476603636,
+    "server_decode_tps": 24.54861238968467,
+    "finish": "stop",
+    "text_head": "blue 111"
+   }
+  ]
+ },
+ "decode": {
+  "summary": {
+   "n": 3,
+   "ttft_s": {
+    "median": 1.045,
+    "min": 1.023,
+    "max": 1.117
+   },
+   "total_s": {
+    "median": 27.425,
+    "min": 26.862,
+    "max": 27.581
+   },
+   "prompt_tokens": {
+    "median": 137,
+    "min": 137,
+    "max": 137
+   },
+   "completion_tokens": {
+    "median": 512,
+    "min": 512,
+    "max": 512
+   },
+   "client_decode_tps": {
+    "median": 19.37,
+    "min": 19.309,
+    "max": 19.777
+   },
+   "itl_p50_ms": {
+    "median": 51.614,
+    "min": 50.397,
+    "max": 51.916
+   },
+   "itl_p99_ms": {
+    "median": 55.745,
+    "min": 55.033,
+    "max": 56.498
+   },
+   "server_prompt_tps": {
+    "median": 133.549,
+    "min": 130.813,
+    "max": 138.079
+   },
+   "server_decode_tps": {
+    "median": 19.408,
+    "min": 19.347,
+    "max": 19.816
+   }
+  },
+  "rows": [
+   {
+    "ttft_s": 1.1167282919996069,
+    "total_s": 27.581000541998947,
+    "prompt_tokens": 137,
+    "completion_tokens": 512,
+    "client_decode_tps": 19.30905165926158,
+    "itl_p50_ms": 51.91633300273679,
+    "itl_p99_ms": 55.745083998772316,
+    "server_prompt_n": 137,
+    "server_cache_n": 0,
+    "server_prompt_tps": 138.07867057452822,
+    "server_decode_tps": 19.346801352144922,
+    "finish": "length",
+    "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Procedural Efficiency\n\n## Execut"
+   },
+   {
+    "ttft_s": 1.0445049579939223,
+    "total_s": 27.42489137499797,
+    "prompt_tokens": 137,
+    "completion_tokens": 512,
+    "client_decode_tps": 19.37045166520472,
+    "itl_p50_ms": 51.613957999506965,
+    "itl_p99_ms": 56.498375000956,
+    "server_prompt_n": 132,
+    "server_cache_n": 5,
+    "server_prompt_tps": 130.81274353963428,
+    "server_decode_tps": 19.408340529645272,
+    "finish": "length",
+    "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Procedural Efficiency\n\n## Execut"
+   },
+   {
+    "ttft_s": 1.023449416999938,
+    "total_s": 26.86167470899818,
+    "prompt_tokens": 137,
+    "completion_tokens": 512,
+    "client_decode_tps": 19.776900086022934,
+    "itl_p50_ms": 50.39720900094835,
+    "itl_p99_ms": 55.03337499976624,
+    "server_prompt_n": 132,
+    "server_cache_n": 5,
+    "server_prompt_tps": 133.54944060995672,
+    "server_decode_tps": 19.815578117362946,
+    "finish": "length",
+    "text_head": "# Comprehensive Report on Harbor Logistics: Operational Frameworks, Data Integrity, and Procedural Efficiency\n\n## Execut"
+   }
+  ]
+ }
+}

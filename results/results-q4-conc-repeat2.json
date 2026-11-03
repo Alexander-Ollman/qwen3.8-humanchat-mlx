@@ -1,0 +1,249 @@
+{
+ "args": {
+  "base": "http://127.0.0.1:8090/v1",
+  "model": "humanlike-2.0",
+  "reps": 3,
+  "prompt_chars": [
+   200,
+   8000,
+   32000,
+   80000
+  ],
+  "warm_chars": 32000,
+  "decode_tokens": 512,
+  "conc_tokens": 256,
+  "concurrency": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "stages": [
+   "conc"
+  ],
+  "out": "results-q4-conc-repeat2.json"
+ },
+ "started": "2026-10-31T16:33:42-0700",
+ "conc": {
+  "1": {
+   "wall_s": 13.56,
+   "total_tokens": 256,
+   "aggregate_tps": 18.87,
+   "requests_per_min": 4.42,
+   "errors": [],
+   "summary": {
+    "n": 1,
+    "ttft_s": {
+     "median": 1.256,
+     "min": 1.256,
+     "max": 1.256
+    },
+    "total_s": {
+     "median": 13.563,
+     "min": 13.563,
+     "max": 13.563
+    },
+    "prompt_tokens": {
+     "median": 227,
+     "min": 227,
+     "max": 227
+    },
+    "completion_tokens": {
+     "median": 256,
+     "min": 256,
+     "max": 256
+    },
+    "client_decode_tps": {
+     "median": 20.72,
+     "min": 20.72,
+     "max": 20.72
+    },
+    "itl_p50_ms": {
+     "median": 48.404,
+     "min": 48.404,
+     "max": 48.404
+    },
+    "itl_p99_ms": {
+     "median": 51.568,
+     "min": 51.568,
+     "max": 51.568
+    },
+    "server_prompt_tps": {
+     "median": 186.257,
+     "min": 186.257,
+     "max": 186.257
+    },
+    "server_decode_tps": {
+     "median": 20.801,
+     "min": 20.801,
+     "max": 20.801
+    }
+   }
+  },
+  "2": {
+   "wall_s": 23.25,
+   "total_tokens": 512,
+   "aggregate_tps": 22.02,
+   "requests_per_min": 5.16,
+   "errors": [],
+   "summary": {
+    "n": 2,
+    "ttft_s": {
+     "median": 2.683,
+     "min": 2.683,
+     "max": 2.683
+    },
+    "total_s": {
+     "median": 23.25,
+     "min": 23.25,
+     "max": 23.25
+    },
+    "prompt_tokens": {
+     "median": 227.0,
+     "min": 227,
+     "max": 227
+    },
+    "completion_tokens": {
+     "median": 256.0,
+     "min": 256,
+     "max": 256
+    },
+    "client_decode_tps": {
+     "median": 12.399,
+     "min": 12.399,
+     "max": 12.399
+    },
+    "itl_p50_ms": {
+     "median": 80.423,
+     "min": 80.416,
+     "max": 80.431
+    },
+    "itl_p99_ms": {
+     "median": 87.229,
+     "min": 87.22,
+     "max": 87.238
+    },
+    "server_prompt_tps": {
+     "median": 86.724,
+     "min": 86.718,
+     "max": 86.73
+    },
+    "server_decode_tps": {
+     "median": 12.447,
+     "min": 12.447,
+     "max": 12.447
+    }
+   }
+  },
+  "3": {
+   "wall_s": 37.31,
+   "total_tokens": 768,
+   "aggregate_tps": 20.58,
+   "requests_per_min": 4.82,
+   "errors": [],
+   "summary": {
+    "n": 3,
+    "ttft_s": {
+     "median": 3.79,
+     "min": 3.79,
+     "max": 3.791
+    },
+    "total_s": {
+     "median": 37.31,
+     "min": 37.31,
+     "max": 37.311
+    },
+    "prompt_tokens": {
+     "median": 227,
+     "min": 227,
+     "max": 227
+    },
+    "completion_tokens": {
+     "median": 256,
+     "min": 256,
+     "max": 256
+    },
+    "client_decode_tps": {
+     "median": 7.607,
+     "min": 7.607,
+     "max": 7.607
+    },
+    "itl_p50_ms": {
+     "median": 131.367,
+     "min": 131.364,
+     "max": 131.368
+    },
+    "itl_p99_ms": {
+     "median": 141.715,
+     "min": 141.708,
+     "max": 141.721
+    },
+    "server_prompt_tps": {
+     "median": 60.99,
+     "min": 60.985,
+     "max": 60.998
+    },
+    "server_decode_tps": {
+     "median": 7.637,
+     "min": 7.637,
+     "max": 7.637
+    }
+   }
+  },
+  "4": {
+   "wall_s": 47.05,
+   "total_tokens": 1024,
+   "aggregate_tps": 21.76,
+   "requests_per_min": 5.1,
+   "errors": [],
+   "summary": {
+    "n": 4,
+    "ttft_s": {
+     "median": 4.809,
+     "min": 4.809,
+     "max": 4.81
+    },
+    "total_s": {
+     "median": 47.051,
+     "min": 47.05,
+     "max": 47.051
+    },
+    "prompt_tokens": {
+     "median": 227.0,
+     "min": 227,
+     "max": 227
+    },
+    "completion_tokens": {
+     "median": 256.0,
+     "min": 256,
+     "max": 256
+    },
+    "client_decode_tps": {
+     "median": 6.037,
+     "min": 6.037,
+     "max": 6.037
+    },
+    "itl_p50_ms": {
+     "median": 165.124,
+     "min": 165.121,
+     "max": 165.13
+    },
+    "itl_p99_ms": {
+     "median": 172.764,
+     "min": 172.723,
+     "max": 172.781
+    },
+    "server_prompt_tps": {
+     "median": 48.119,
+     "min": 48.114,
+     "max": 48.125
+    },
+    "server_decode_tps": {
+     "median": 6.06,
+     "min": 6.06,
+     "max": 6.06
+    }
+   }
+  }
+ }
+}

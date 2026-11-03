@@ -1,0 +1,532 @@
+{
+ "args": {
+  "base": "http://127.0.0.1:11434/v1",
+  "model": "humanlike-2.0-nvfp4",
+  "reps": 3,
+  "prompt_chars": [
+   200,
+   8000,
+   32000,
+   80000
+  ],
+  "warm_chars": 32000,
+  "decode_tokens": 512,
+  "conc_tokens": 256,
+  "concurrency": [
+   1,
+   2,
+   4
+  ],
+  "stages": [
+   "cold",
+   "warm",
+   "decode",
+   "conc"
+  ],
+  "extra": "{\"reasoning_effort\":\"none\"}",
+  "out": "results-ollama-nvfp4.json"
+ },
+ "started": "2026-10-31T19:00:30-0700",
+ "cold": {
+  "200": {
+   "summary": {
+    "n": 3,
+    "ttft_s": {
+     "median": 0.466,
+     "min": 0.458,
+     "max": 0.543
+    },
+    "total_s": {
+     "median": 1.161,
+     "min": 1.157,
+     "max": 1.197
+    },
+    "prompt_tokens": {
+     "median": 92,
+     "min": 92,
+     "max": 92
+    },
+    "completion_tokens": {
+     "median": 32,
+     "min": 32,
+     "max": 32
+    },
+    "client_decode_tps": {
+     "median": 44.853,
+     "min": 44.068,
+     "max": 47.382
+    },
+    "itl_p50_ms": {
+     "median": 0.04,
+     "min": 0.029,
+     "max": 0.043
+    },
+    "itl_p99_ms": {
+     "median": 76.258,
+     "min": 65.252,
+     "max": 76.579
+    },
+    "server_prompt_tps": {
+     "median": 240.209,
+     "min": 207.675,
+     "max": 245.989
+    },
+    "server_decode_tps": {
+     "median": 41.775,
+     "min": 41.078,
+     "max": 43.836
+    }
+   },
+   "rows": [
+    {
+     "ttft_s": 0.5427335830027005,
+     "total_s": 1.196986041002674,
+     "prompt_tokens": 92,
+     "completion_tokens": 32,
+     "client_decode_tps": 47.38232103057877,
+     "itl_p50_ms": 0.043499996536411345,
+     "itl_p99_ms": 76.25812500191387,
+     "server_prompt_n": 92,
+     "server_cache_n": null,
+     "server_prompt_tps": 207.67494356659142,
+     "server_decode_tps": 43.83561643835616,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics and Operational Efficiency\n\n## Executive Summary\n\nThis report provides an in-"
+    },
+    {
+     "ttft_s": 0.4656037499953527,
+     "total_s": 1.1567516249997425,
+     "prompt_tokens": 92,
+     "completion_tokens": 32,
+     "client_decode_tps": 44.852919499756986,
+     "itl_p50_ms": 0.028583002858795226,
+     "itl_p99_ms": 65.25158300064504,
+     "server_prompt_n": 92,
+     "server_cache_n": null,
+     "server_prompt_tps": 240.2088772845953,
+     "server_decode_tps": 41.775456919060055,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics and Operational Efficiency\n\n## Executive Summary\n\nThis report provides an in-"
+    },
+    {
+     "ttft_s": 0.4576143750018673,
+     "total_s": 1.161078166005609,
+     "prompt_tokens": 92,
+     "completion_tokens": 32,
+     "client_decode_tps": 44.06765550188085,
+     "itl_p50_ms": 0.039500002458225936,
+     "itl_p99_ms": 76.57900000049267,
+     "server_prompt_n": 92,
+     "server_cache_n": null,
+     "server_prompt_tps": 245.98930481283423,
+     "server_decode_tps": 41.078305519897306,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics and Operational Efficiency\n\n## Executive Summary\n\nThis report provides an in-"
+    }
+   ]
+  },
+  "8000": {
+   "summary": {
+    "n": 3,
+    "ttft_s": {
+     "median": 7.339,
+     "min": 6.831,
+     "max": 7.659
+    },
+    "total_s": {
+     "median": 8.022,
+     "min": 7.47,
+     "max": 8.23
+    },
+    "prompt_tokens": {
+     "median": 1808,
+     "min": 1808,
+     "max": 1808
+    },
+    "completion_tokens": {
+     "median": 32,
+     "min": 32,
+     "max": 32
+    },
+    "client_decode_tps": {
+     "median": 48.477,
+     "min": 45.423,
+     "max": 54.287
+    },
+    "itl_p50_ms": {
+     "median": 0.038,
+     "min": 0.038,
+     "max": 0.043
+    },
+    "itl_p99_ms": {
+     "median": 80.072,
+     "min": 66.609,
+     "max": 80.118
+    },
+    "server_prompt_tps": {
+     "median": 252.127,
+     "min": 244.225,
+     "max": 270.173
+    },
+    "server_decode_tps": {
+     "median": 41.612,
+     "min": 38.005,
+     "max": 43.836
+    }
+   },
+   "rows": [
+    {
+     "ttft_s": 6.830536458001006,
+     "total_s": 7.470019958003832,
+     "prompt_tokens": 1808,
+     "completion_tokens": 32,
+     "client_decode_tps": 48.476622148754494,
+     "itl_p50_ms": 0.04320900188758969,
+     "itl_p99_ms": 66.60933300008764,
+     "server_prompt_n": 1808,
+     "server_cache_n": null,
+     "server_prompt_tps": 270.1733413030484,
+     "server_decode_tps": 41.612483745123534,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics and Operational Efficiency\n\n## Executive Summary\n\nThis report provides an in-"
+    },
+    {
+     "ttft_s": 7.3392798749991925,
+     "total_s": 8.021756832997198,
+     "prompt_tokens": 1808,
+     "completion_tokens": 32,
+     "client_decode_tps": 45.42277894763824,
+     "itl_p50_ms": 0.037750003684777766,
+     "itl_p99_ms": 80.11833400087198,
+     "server_prompt_n": 1808,
+     "server_cache_n": null,
+     "server_prompt_tps": 252.1266211128155,
+     "server_decode_tps": 38.00475059382423,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics and Operational Efficiency\n\n## Executive Summary\n\nThis report provides an in-"
+    },
+    {
+     "ttft_s": 7.658833458001027,
+     "total_s": 8.229875541997899,
+     "prompt_tokens": 1808,
+     "completion_tokens": 32,
+     "client_decode_tps": 54.286716984189574,
+     "itl_p50_ms": 0.038082995160948485,
+     "itl_p99_ms": 80.07204200112028,
+     "server_prompt_n": 1808,
+     "server_cache_n": null,
+     "server_prompt_tps": 244.2253140618668,
+     "server_decode_tps": 43.83561643835616,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics and Operational Efficiency\n\n## Executive Summary\n\nThis report provides an in-"
+    }
+   ]
+  },
+  "32000": {
+   "summary": {
+    "n": 3,
+    "ttft_s": {
+     "median": 28.439,
+     "min": 28.302,
+     "max": 28.981
+    },
+    "total_s": {
+     "median": 29.115,
+     "min": 29.036,
+     "max": 29.862
+    },
+    "prompt_tokens": {
+     "median": 7088,
+     "min": 7088,
+     "max": 7088
+    },
+    "completion_tokens": {
+     "median": 32,
+     "min": 32,
+     "max": 32
+    },
+    "client_decode_tps": {
+     "median": 42.222,
+     "min": 35.198,
+     "max": 45.877
+    },
+    "itl_p50_ms": {
+     "median": 0.042,
+     "min": 0.031,
+     "max": 0.051
+    },
+    "itl_p99_ms": {
+     "median": 152.803,
+     "min": 83.012,
+     "max": 197.684
+    },
+    "server_prompt_tps": {
+     "median": 250.53,
+     "min": 245.881,
+     "max": 251.776
+    },
+    "server_decode_tps": {
+     "median": 37.037,
+     "min": 31.311,
+     "max": 39.702
+    }
+   },
+   "rows": [
+    {
+     "ttft_s": 28.9810337089948,
+     "total_s": 29.861765834000835,
+     "prompt_tokens": 7088,
+     "completion_tokens": 32,
+     "client_decode_tps": 35.197989399770805,
+     "itl_p50_ms": 0.041624996811151505,
+     "itl_p99_ms": 197.68350000231294,
+     "server_prompt_n": 7088,
+     "server_cache_n": null,
+     "server_prompt_tps": 245.88059805043883,
+     "server_decode_tps": 31.31115459882583,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Efficiency, Data Integrity, and Strategic Management\n\n## Executi"
+    },
+    {
+     "ttft_s": 28.302261082993937,
+     "total_s": 29.03648116599652,
+     "prompt_tokens": 7088,
+     "completion_tokens": 32,
+     "client_decode_tps": 42.221672653281175,
+     "itl_p50_ms": 0.05100000271340832,
+     "itl_p99_ms": 83.01208299963037,
+     "server_prompt_n": 7088,
+     "server_cache_n": null,
+     "server_prompt_tps": 251.77607274793976,
+     "server_decode_tps": 37.03703703703704,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Efficiency, Data Integrity, and Strategic Management\n\n## Executi"
+    },
+    {
+     "ttft_s": 28.439014457995654,
+     "total_s": 29.11473562500032,
+     "prompt_tokens": 7088,
+     "completion_tokens": 32,
+     "client_decode_tps": 45.87691123753991,
+     "itl_p50_ms": 0.030750001315027475,
+     "itl_p99_ms": 152.8026659943862,
+     "server_prompt_n": 7088,
+     "server_cache_n": null,
+     "server_prompt_tps": 250.53018521136718,
+     "server_decode_tps": 39.702233250620345,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics and Operational Efficiency\n\n## Executive Summary\n\nThis report provides an in-"
+    }
+   ]
+  },
+  "80000": {
+   "summary": {
+    "n": 3,
+    "ttft_s": {
+     "median": 75.43,
+     "min": 73.761,
+     "max": 77.563
+    },
+    "total_s": {
+     "median": 76.088,
+     "min": 74.505,
+     "max": 78.359
+    },
+    "prompt_tokens": {
+     "median": 17648,
+     "min": 17648,
+     "max": 17648
+    },
+    "completion_tokens": {
+     "median": 32,
+     "min": 32,
+     "max": 32
+    },
+    "client_decode_tps": {
+     "median": 41.676,
+     "min": 38.943,
+     "max": 47.11
+    },
+    "itl_p50_ms": {
+     "median": 0.045,
+     "min": 0.045,
+     "max": 0.047
+    },
+    "itl_p99_ms": {
+     "median": 85.825,
+     "min": 85.746,
+     "max": 94.738
+    },
+    "server_prompt_tps": {
+     "median": 234.565,
+     "min": 227.851,
+     "max": 240.295
+    },
+    "server_decode_tps": {
+     "median": 36.446,
+     "min": 30.858,
+     "max": 38.601
+    }
+   },
+   "rows": [
+    {
+     "ttft_s": 73.76090529200155,
+     "total_s": 74.5047350829991,
+     "prompt_tokens": 17648,
+     "completion_tokens": 32,
+     "client_decode_tps": 41.676201162131235,
+     "itl_p50_ms": 0.046749999455641955,
+     "itl_p99_ms": 94.73774999787565,
+     "server_prompt_n": 17648,
+     "server_cache_n": null,
+     "server_prompt_tps": 240.29519491306183,
+     "server_decode_tps": 30.85824493731919,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Efficiency, Data Integrity, and Strategic Management\n\n## Executi"
+    },
+    {
+     "ttft_s": 75.43029462499544,
+     "total_s": 76.0883284159936,
+     "prompt_tokens": 17648,
+     "completion_tokens": 32,
+     "client_decode_tps": 47.110042712208745,
+     "itl_p50_ms": 0.04520799848251045,
+     "itl_p99_ms": 85.7459580001887,
+     "server_prompt_n": 17648,
+     "server_cache_n": null,
+     "server_prompt_tps": 234.56543987665643,
+     "server_decode_tps": 38.600723763570564,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics and Operational Efficiency\n\n## Executive Summary\n\nThis report provides an in-"
+    },
+    {
+     "ttft_s": 77.56313920799585,
+     "total_s": 78.35917441599304,
+     "prompt_tokens": 17648,
+     "completion_tokens": 32,
+     "client_decode_tps": 38.943001124278574,
+     "itl_p50_ms": 0.04545800038613379,
+     "itl_p99_ms": 85.82529099658132,
+     "server_prompt_n": 17648,
+     "server_cache_n": null,
+     "server_prompt_tps": 227.85136984532755,
+     "server_decode_tps": 36.44646924829157,
+     "finish": "length",
+     "text_head": "# Comprehensive Report on Harbor Logistics: Operational Efficiency, Data Integrity, and Strategic Management\n\n## Executi"
+    }
+   ]
+  }
+ },
+ "warm": {
+  "seed": {
+   "ttft_s": 29.909617875004187,
+   "total_s": 29.909721833013464,
+   "prompt_tokens": 7096,
+   "completion_tokens": 1,
+   "client_decode_tps": 0.0,
+   "itl_p50_ms": null,
+   "itl_p99_ms": null,
+   "server_prompt_n": 7096,
+   "server_cache_n": null,
+   "server_prompt_tps": 238.1527721841858,
+   "server_decode_tps": 12.345679012345679,
+   "finish": "stop",
+   "text_head": "ok"
+  },
+  "summary": {
+   "n": 3,
+   "ttft_s": {
+    "median": 0.324,
+    "min": 0.27,
+    "max": 29.852
+   },
+   "total_s": {
+    "median": 0.846,
+    "min": 0.471,
+    "max": 29.998
+   },
+   "prompt_tokens": {
+    "median": 7104,
+    "min": 7104,
+    "max": 7105
+   },
+   "completion_tokens": {
+    "median": 5,
+    "min": 4,
+    "max": 32
+   },
+   "client_decode_tps": {
+    "median": 27.19,
+    "min": 20.462,
+    "max": 53.733
+   },
+   "itl_p50_ms": {
+    "median": 0.039,
+    "min": 0.027,
+    "max": 73.217
+   },
+   "itl_p99_ms": {
+    "median": 146.384,
+    "min": 79.69,
+    "max": 146.944
+   },
+   "server_prompt_tps": {
+    "median": 31718.75,
+    "min": 239.329,
+    "max": 43054.545
+   },
+   "server_decode_tps": {
+    "median": 22.124,
+    "min": 14.134,
+    "max": 48.411
+   }
+  },
+  "rows": [
+   {
+    "ttft_s": 29.851623624999775,
+    "total_s": 29.99823749999632,
+    "prompt_tokens": 7104,
+    "completion_tokens": 4,
+    "client_decode_tps": 20.461910580227567,
+    "itl_p50_ms": 73.21681249595713,
+    "itl_p99_ms": 146.3842079974711,
+    "server_prompt_n": 7104,
+    "server_cache_n": null,
+    "server_prompt_tps": 239.32890880301855,
+    "server_decode_tps": 14.134275618374557,
+    "finish": "stop",
+    "text_head": "blue 37"
+   },
+   {
+    "ttft_s": 0.26951312500750646,
+    "total_s": 0.8464349160058191,
+    "prompt_tokens": 7104,
+    "completion_tokens": 32,
+    "client_decode_tps": 53.733453101775225,
+    "itl_p50_ms": 0.02691699774004519,
+    "itl_p99_ms": 79.69037500151899,
+    "server_prompt_n": 7104,
+    "server_cache_n": null,
+    "server_prompt_tps": 43054.545454545456,
+    "server_decode_tps": 48.41149773071104,
+    "finish": "length",
+    "text_head": "Harbor logistics is a complex, multi-layered operation that demands precision, coordination, and constant vigilance. The"
+   },
+   {
+    "ttft_s": 0.32387962500797585,
+    "total_s": 0.47099175000039395,
+    "prompt_tokens": 7105,
+    "completion_tokens": 5,
+    "client_decode_tps": 27.19014493337074,
+    "itl_p50_ms": 0.03850000211969018,
+    "itl_p99_ms": 146.9440829969244,
+    "server_prompt_n": 7105,
+    "server_cache_n": null,
+    "server_prompt_tps": 31718.75,
+    "server_decode_tps": 22.123893805309734,
+    "finish": "stop",
+    "text_head": "blue 111"
+   }
+  ]
+ }
+}
